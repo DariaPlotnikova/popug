@@ -1,0 +1,72 @@
+version: '3.7'
+
+services:
+
+  gateway:
+    build:
+      context: ./gateway
+    stdin_open: true
+    tty: true
+    network_mode: host
+    volumes:
+      - ./gateway/:/gateway
+    ports:
+      - "8000:8000"
+    depends_on:
+      - user
+      - board
+#      - account
+
+  # Системные сервисы
+#  notify:
+#    build:
+#      context: ./notify
+#    stdin_open: true
+#    tty: true
+##    network_mode: host
+#    volumes:
+#      - ./notify/:/notify
+#    ports:
+#      - 8002:8002
+#  payment:
+#    build:
+#      context: ./payment
+#    stdin_open: true
+#    tty: true
+##    network_mode: host
+#    volumes:
+#      - ./payment/:/payment
+#    ports:
+#      - 8003:8003
+
+  # Сервисы бизнес-логики
+  user:
+    build:
+      context: ./user
+    stdin_open: true
+    tty: true
+    network_mode: host
+    volumes:
+      - ./user/:/user
+    ports:
+      - "9000:9000"
+  board:
+    build:
+      context: ./board
+    stdin_open: true
+    tty: true
+    network_mode: host
+    volumes:
+      - ./board/:/board
+    ports:
+      - "9001:9001"
+#  account:
+#    build:
+#      context: ./account
+#    stdin_open: true
+#    tty: true
+##    network_mode: host
+#    volumes:
+#      - ./account/:/account
+#    ports:
+#      - 9002:9002
